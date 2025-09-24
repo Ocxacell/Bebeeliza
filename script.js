@@ -2,9 +2,18 @@ const fondo = document.getElementById("fondo");
 
 // Lista de imágenes
 const imagenes = [
-  "img/foto1.jpeg",
-  "img/foto2.jpeg",
-  "img/foto3.jpg"
+  "img/foto1.jpg",
+  "img/foto2.jpg",
+  "img/foto3.jpg",
+  "img/foto4.jpg",
+  "img/foto5.jpg",
+  "img/foto6.jpg",
+  "img/foto7.jpg",
+  "img/foto8.jpg",
+  "img/foto9.jpg",
+  "img/foto10.jpg",
+  "img/foto11.jpg",
+  "img/foto12.jpg",
 ];
 
 const burbujas = [];
@@ -13,6 +22,11 @@ let alto = window.innerHeight;
 
 // Función para crear una burbuja
 function crearBurbuja(src) {
+  // Validar que src sea una cadena y no undefined
+  if (typeof src !== "string" || !src.trim()) {
+    // No crear burbuja si la imagen no es válida
+    return null;
+  }
   const burbuja = document.createElement("div");
   burbuja.classList.add("burbuja");
 
@@ -35,10 +49,14 @@ function crearBurbuja(src) {
   return {el: burbuja, x, y, dx, dy, size, radius: size/2};
 }
 
-// Iniciales
-imagenes.forEach(src => {
-  burbujas.push(crearBurbuja(src));
-});
+
+// Limitar cantidad de burbujas
+const burbujasMaximas = 5;
+for (let i = 0; i < burbujasMaximas; i++) {
+  const src = imagenes[i % imagenes.length];
+  const nuevaBurbuja = crearBurbuja(src);
+  if (nuevaBurbuja) burbujas.push(nuevaBurbuja);
+}
 
 // Nueva función de detección de colisiones mejorada
 function detectarColisiones() {
