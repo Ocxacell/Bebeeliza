@@ -1,0 +1,135 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;   /* apila h1 y h2 verticalmente */
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background: #132145;
+  font-family: Arial, sans-serif;
+}
+
+.highlight {
+  font-size: 48px;
+  color: white;
+  letter-spacing: 2px;
+  display: flex; /* hace que los spans se alineen en fila */
+}
+
+.highlight span {
+  display: inline-block;
+  animation: glow 5s infinite alternate, wave 2s infinite ease-in-out;
+  text-shadow: 0 0 10px #ff00ff,
+               0 0 20px #ff00ff,
+               0 0 40px #ff00ff;
+}
+
+/* Animación glow (colores) */
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 10px #ff00ff,
+                 0 0 20px #ff00ff,
+                 0 0 40px #ff00ff;
+  }
+  50% {
+    text-shadow: 0 0 10px #00ffff,
+                 0 0 20px #00ffff,
+                 0 0 40px #00ffff;
+  }
+  100% {
+    text-shadow: 0 0 10px #ffff00,
+                 0 0 20px #ffff00,
+                 0 0 40px #ffff00;
+  }
+}
+
+/* Animación ola */
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* retraso para cada letra */
+.highlight span:nth-child(1) { animation-delay: 0s, 0s; }
+.highlight span:nth-child(2) { animation-delay: 0s, 0.1s; }
+.highlight span:nth-child(3) { animation-delay: 0s, 0.2s; }
+.highlight span:nth-child(4) { animation-delay: 0s, 0.3s; }
+.highlight span:nth-child(5) { animation-delay: 0s, 0.4s; }
+.highlight span:nth-child(6) { animation-delay: 0s, 0.5s; }
+.highlight span:nth-child(7) { animation-delay: 0s, 0.6s; }
+.highlight span:nth-child(8) { animation-delay: 0s, 0.7s; }
+.highlight span:nth-child(9) { animation-delay: 0s, 0.8s; }
+
+/* Fondo para las burbujas */
+#fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 0; /* debajo del texto */
+}
+
+/* Cada burbuja */
+.burbuja {
+  position: absolute;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.8;
+  box-shadow: 0 0 15px rgba(255,255,255,0.4);
+}
+
+/* Texto encima de las burbujas */
+.highlight {
+  position: relative;
+  z-index: 1; /* siempre encima */
+}
+/*BURBUJAS REALISTAS*/
+.burbuja {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  
+  /* Glow exterior */
+  box-shadow: 0 0 20px rgba(255,255,255,0.3),
+              inset 0 0 15px rgba(255,255,255,0.4);
+}
+
+/* Capa de brillo para dar efecto burbuja */
+.burbuja::after {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%);
+  transform: rotate(-20deg);
+}
+
+/*cambio burbujas*/
+/* Animación de desaparecer (estallar) */
+@keyframes estallar {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Animación de aparecer (crecer) */
+@keyframes aparecer {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.burbuja.estallando {
+  animation: estallar 0.6s forwards;
+}
+
+.burbuja.nueva {
+  animation: aparecer 0.8s ease-out;
+}
